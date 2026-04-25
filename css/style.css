@@ -1,0 +1,63 @@
+html {
+  scroll-behavior: smooth;
+}
+body{
+    font-family: "Open Sans", sans-serif;
+    width: 100%;
+}
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style-type: none;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3em;
+    color: #fff;
+    padding: 8px;
+    background-color: rgba(2, 101, 2, 0.834);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+header > *{
+    max-width: 1640px;
+    margin: 0 auto;
+    padding: 10px;
+}
+nav ul{
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+nav ul li{
+    padding: 0 10px;
+}
+nav ul li a{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-decoration: none;
+}
+nav ul li a:hover,.menu-btn a:hover{
+    color: rgb(255, 255, 255);
+}
+.menu-btn a{
+    padding: 5px 15px;
+    color: black;
+    background-color: rgb(247, 247, 247);
+}
+.menu-btn .signup{
+    margin-left: 20px;
+    border: 1px solid rgb(218, 218, 218);
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease,color 0.3s ease;
+}
+.menu-btn .signup:hover{
+    background-color: rgb(33, 1, 1);
+    color: #ffffff;
+}

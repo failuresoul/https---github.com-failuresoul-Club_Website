@@ -67,7 +67,6 @@ nav ul li a:hover,.menu-btn a:hover{
 .home{
     position: relative;
     background-image: url(../img/back.png);
-    background-size: cover;
     background-position: center;
     color: white;
 }
@@ -144,5 +143,67 @@ hr{
 }
 .home .container .box .card p{
     font-weight: bold;
-    font-size: large;
+    font-size: larger;
+}
+
+/* About section */
+.about{
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 40px;
+    max-width: 1640px;
+    margin: 70px 40px 70px 115px;
+    padding: 42px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f8f6ef 0%, #eef5ec 100%);
+    box-shadow: 0 22px 48px rgba(14, 61, 32, 0.12);
+}
+
+.abouttext h2{
+    font-size: clamp(2rem, 2.4vw, 2.8rem);
+    color: #0c552b;
+    letter-spacing: 0.4px;
+    margin-bottom: 18px;
+    position: relative;
+    width: fit-content;
+}
+
+.abouttext h2::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 62%;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f1c40f 0%, #0f7a3b 100%);
+}
+
+.abouttext p{
+    color: #284233;
+    font-size: 1.06rem;
+    line-height: 1.85;
+    margin-bottom: 14px;
+}
+
+.abouttext p:last-child{
+    margin-bottom: 0;
+}
+
+.aboutimg{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.aboutimg img{
+    width: 100%;
+    max-width: 470px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 6px solid #ffffff;
+    box-shadow: 0 14px 36px rgba(8, 50, 24, 0.22);
+    position: relative;
+    z-index: 1;
 }

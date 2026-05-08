@@ -348,3 +348,91 @@ hr{
 .gallery-item--tall{
     grid-row: span 2;
 }
+
+/* People section */
+.people{
+    max-width: 1640px;
+    margin: 70px 40px 70px 115px;
+    padding: 42px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f9faf7 0%, #eef4ed 100%);
+    box-shadow: 0 22px 48px rgba(14, 61, 32, 0.10);
+}
+
+.people-container{
+    width: 100%;
+}
+
+.people-group{
+    margin-top: 28px;
+}
+
+.people-group h3{
+    color: #0c552b;
+    font-size: 1.55rem;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(15, 122, 59, 0.16);
+}
+
+.people-grid{
+    display: grid;
+    gap: 18px;
+}
+
+.people-grid--advisors,.people-grid--leaders{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.people-grid--members{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.people-card{
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(15, 122, 59, 0.12);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 12px 30px rgba(8, 50, 24, 0.08);
+    text-align: center;
+}
+
+/* modifier to increase image height without changing card width */
+/* .people-card--tallimg img{
+    height: 320px;
+} */
+
+.people-card img{
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    display: block;
+}
+
+.people-role{
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(15, 122, 59, 0.10);
+    color: #0c552b;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    margin-bottom: 10px;
+}
+
+.people-name{
+    color: #284233;
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.people-caption{
+    font-weight: semi-bold;
+    color: #557061;
+    font-size: 0.94rem;
+    line-height: 1.5;
+}

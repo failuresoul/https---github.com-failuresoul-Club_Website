@@ -46,7 +46,7 @@ nav ul li a{
     text-decoration: none;
 }
 nav ul li a:hover,.menu-btn a:hover{
-    color: rgb(255, 247, 0);
+    color: rgb(0, 0, 0);
 }
 .menu-btn a{
     padding: 5px 15px;
@@ -380,7 +380,7 @@ hr{
     gap: 18px;
 }
 
-.people-grid--advisors,.people-grid--leaders{
+.people-grid--advisors,.people-grid--leaders,.people-grid--memberss{
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -435,4 +435,168 @@ hr{
     color: #557061;
     font-size: 0.94rem;
     line-height: 1.5;
+}
+
+/* Contact section */
+.contact{
+    max-width: 1640px;
+    margin: 70px 40px 70px 115px;
+    padding: 42px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f8faf6 0%, #eef5ee 100%);
+    box-shadow: 0 22px 48px rgba(14, 61, 32, 0.10);
+}
+
+.contact-container{
+    width: 100%;
+}
+
+.contact-content{
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    margin-top: 28px;
+    align-items: flex-start;
+}
+
+.contact-info{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.info-item{
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(15, 122, 59, 0.12);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(8, 50, 24, 0.08);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    margin-bottom: 0;
+}
+
+.info-item:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(8, 50, 24, 0.12);
+}
+
+.info-item h3{
+    color: #0c552b;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.info-item p{
+    color: #284233;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.info-item a{
+    color: #0f7a3b;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    word-break: break-word;
+}
+
+.info-item a:hover{
+    color: #101010;
+    text-decoration: underline;
+}
+
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(15, 122, 59, 0.12);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 12px 30px rgba(8, 50, 24, 0.08);
+    height: fit-content;
+    position: sticky;
+    top: 120px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label{
+    color: #0c552b;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    padding: 12px 14px;
+    border: 1px solid rgba(15, 122, 59, 0.16);
+    border-radius: 10px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.98rem;
+    color: #284233;
+    background-color: #fafaf9;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color: #a0a0a0;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    outline: none;
+    border-color: #0f7a3b;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(15, 122, 59, 0.08);
+}
+
+.form-group textarea{
+    resize: vertical;
+    min-height: 120px;
+    font-family: "Open Sans", sans-serif;
+}
+
+.form-group select{
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230f7a3b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.contact-btn{
+    padding: 14px 24px;
+    background-color: #0c552b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 8px;
+    align-self: flex-start;
+}
+
+.contact-btn:hover{
+    background-color: #0f7a3b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 122, 59, 0.24);
+}
+
+.contact-btn:active{
+    transform: translateY(0);
 }

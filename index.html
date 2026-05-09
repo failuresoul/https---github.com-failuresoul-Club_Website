@@ -22,7 +22,7 @@
             </ul>
         </nav>
         <div class="menu-btn">
-            <a href="#Joinnow" class="signup">Join Now</a>
+            <button onclick="document.getElementById('joinnow-modal').style.display='flex'" class="signup">Join Now</button>
         </div>
     </header>
     <main>
@@ -40,8 +40,8 @@
                     <p>এখানে শুধু সংগঠন না, এইটা হইলো সিলটি হৃদয়ের মিলনস্থল।</p>
                 </div>
                 <div class="herobtn">
-                    <div><a href="#Becomeamember" class="becomeamember">Become a Member</a></div>
-                    <div><a href="#Viewevents" class="viewevents">View Events</a></div>
+                    <div><a href="javascript:void(0)" class="becomeamember" onclick="document.getElementById('joinnow-modal').style.display='flex'">Become a Member</a></div>
+                    <div><a href="#Events" class="viewevents">View Events</a></div>
                 </div>
                 <hr>
                 <div class="box">
@@ -467,6 +467,80 @@
             </div>
         </section>
 
+        <div class="joinnow-modal" id="joinnow-modal">
+            <div class="joinnow-modal-overlay" onclick="document.getElementById('joinnow-modal').style.display='none'"></div>
+            <div class="joinnow-modal-content">
+                <button class="joinnow-modal-close" onclick="document.getElementById('joinnow-modal').style.display='none'">&times;</button>
+                <div class="joinnow-modal-header">
+                    <h2>Join Now</h2>
+                    <p>Fill out this form to connect with the Sylhet Association of KUET.</p>
+                </div>
+                <form class="joinnow-form" onsubmit="handleJoinSubmit(event)">
+                        <div class="joinnow-grid">
+                            <div class="form-group">
+                                <label for="join-name">Name</label>
+                                <input type="text" id="join-name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-department">Department</label>
+                                <select id="join-department" name="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="CSE">Computer Science & Engineering (CSE)</option>
+                                    <option value="ME">Mechanical Engineering (ME)</option>
+                                    <option value="CE">Civil Engineering (CE)</option>
+                                    <option value="EEE">Electrical & Electronic Engineering (EEE)</option>
+                                    <option value="BECM">Bio-Medical Engineering (BECM)</option>
+                                    <option value="IPE">Industrial & Production Engineering (IPE)</option>
+                                    <option value="URP">Urban & Regional Planning (URP)</option>
+                                    <option value="TE">Textile Engineering (TE)</option>
+                                    <option value="LE">Leather Engineering (LE)</option>
+                                    <option value="MSE">Materials Science & Engineering (MSE)</option>
+                                    <option value="Arch">Architecture (Arch)</option>
+                                    <option value="BME">Biomedical Engineering (BME)</option>
+                                    <option value="MTE">Mechatronics Engineering (MTE)</option>
+                                    <option value="ESE">Energy Science & Engineering (ESE)</option>
+                                    <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                                    <option value="Chem">Chemical Engineering (Chem)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-batch">Batch</label>
+                                <input type="text" id="join-batch" name="batch" placeholder="Example: 2K23" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-roll">Roll</label>
+                                <input type="text" id="join-roll" name="roll" placeholder="Your roll number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-district">District</label>
+                                <input type="text" id="join-district" name="district" placeholder="Your district" required>
+                            </div>
+                            <div class="form-group form-group--full">
+                                <label for="join-connect">How you connect with Sylhet</label>
+                                <textarea id="join-connect" name="connect" rows="4" placeholder="Tell us how you are connected with Sylhet" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-school">School</label>
+                                <input type="text" id="join-school" name="school" placeholder="Your school name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-college">College</label>
+                                <input type="text" id="join-college" name="college" placeholder="Your college name" required>
+                            </div>
+                            <div class="form-group form-group--full">
+                                <label for="join-expect">What you expect</label>
+                                <textarea id="join-expect" name="expect" rows="4" placeholder="What do you expect from the association?" required></textarea>
+                            </div>
+                            <div class="form-group form-group--full">
+                                <label for="join-memory">A memory with Sylhet</label>
+                                <textarea id="join-memory" name="memory" rows="4" placeholder="Share a memory related to Sylhet" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="joinnow-btn">Submit Application</button>
+                    </form>
+            </div>
+        </div>
+
         <footer class="site-footer">
             <div class="site-footer__inner">
                 <div class="site-footer__grid">
@@ -501,5 +575,16 @@
             </div>
         </footer>
     </main>
+    <script>
+        function handleJoinSubmit(event) {
+            event.preventDefault();
+            // Close the modal
+            document.getElementById('joinnow-modal').style.display = 'none';
+            // Scroll back to top (home page)
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            // Reset the form
+            event.target.reset();
+        }
+    </script>
 </body>
 </html>

@@ -55,6 +55,7 @@ nav ul li a:hover,.menu-btn a:hover{
 }
 .menu-btn .signup{
     margin-left: 20px;
+    font-size: large;
     border: 1px solid rgb(218, 218, 218);
     padding: 9px 13px;
     border-radius: 8px;
@@ -598,6 +599,195 @@ hr{
 }
 
 .contact-btn:active{
+    transform: translateY(0);
+}
+
+/* Join Now Modal */
+.joinnow-modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.joinnow-modal-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.joinnow-modal-content{
+    position: relative;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 34px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.joinnow-modal-close{
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #0c552b;
+    cursor: pointer;
+    font-weight: 300;
+    transition: color 0.25s ease;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.joinnow-modal-close:hover{
+    color: #0f7a3b;
+}
+
+.joinnow-modal-header{
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid rgba(15, 122, 59, 0.12);
+}
+
+.joinnow-modal-header h2{
+    color: #0c552b;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.joinnow-modal-header p{
+    color: #557061;
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+/* Join Now Form */
+.joinnow-form{
+    width: 100%;
+}
+
+.joinnow-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.form-group--full{
+    grid-column: 1 / -1;
+}
+
+.joinnow-form .form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.joinnow-form .form-group label{
+    color: #0c552b;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.joinnow-form .form-group input,
+.joinnow-form .form-group textarea,
+.joinnow-form .form-group select{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(15, 122, 59, 0.16);
+    border-radius: 8px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.96rem;
+    color: #284233;
+    background: #fafaf9;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.joinnow-form .form-group input:focus,
+.joinnow-form .form-group textarea:focus,
+.joinnow-form .form-group select:focus{
+    outline: none;
+    border-color: #0f7a3b;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(15, 122, 59, 0.08);
+}
+
+.joinnow-form .form-group textarea{
+    resize: vertical;
+    min-height: 100px;
+}
+
+.joinnow-form .form-group select{
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230f7a3b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.joinnow-btn{
+    width: 100%;
+    padding: 13px 24px;
+    background: #0c552b;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.joinnow-btn:hover{
+    background: #0f7a3b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 122, 59, 0.24);
+}
+
+.joinnow-btn:active{
     transform: translateY(0);
 }
 

@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sylhet Association of KUET</title>
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
     <header>
         <div>
             <img src="img/logo.png" alt="Sylhet Association of KUET Logo" width="100" height="100">
         </div>
-        <nav>
+        <button id="nav-toggle" type="button" class="nav-toggle" aria-label="Toggle navigation" aria-controls="site-nav" aria-expanded="false">☰</button>
+        <nav id="site-nav">
             <ul>
                 <li><a href="#Home">Home</a></li>
                 <li><a href="#About">About</a></li>
@@ -33,7 +35,7 @@
         <section class="home" id="Home">
             <div class="container">
                 <div class="head">
-                    <h1>Welcome to <br><span style="color: rgb(255, 217, 0); margin-left: 175px;">Sylhet Association of  KUET!</span></h1>
+                    <h1>Welcome to <br><span class="hero-title-accent">Sylhet Association of KUET!</span></h1>
                     <p>A community of Sylheti students united by culture, heritage, and brotherhood — building bonds beyond the classroom.</p>
                     <p>We grow together through friendship, support, and meaningful experiences beyond academics.</p>
                     <p>A close-knit community preserving Sylheti traditions while encouraging innovation, leadership, and friendship.</p>
@@ -83,43 +85,34 @@
                 </div>
                 <div class="events-grid">
                     <article class="event-card">
+                        <img src="img/admission.png" alt="Admission event">
                         <h3>Admission Test</h3>
-                        <img src="img/admission.png" alt="Admission event" width="350" height="400">
-                        <br>
                         <p>Every year, KUET organizes its admission test, where many admission candidates come from Sylhet. During this time, we help the candidates by providing proper instructions, such as locating their admission seats, supplying drinking water, arranging accommodation for overnight stays, and guiding them about the travel route from Sylhet to Khulna.</p>
                     </article>
                     <article class="event-card">
+                        <img src="img/bbq.png" alt="BBQ event">
                         <h3>BBQ Night</h3>
-                        <img src="img/bbq.png" alt="BBQ event" width="350" height="400">
-                        <br>
                         <p>The Sylhet Association of KUET organizes a BBQ Night every year to create enjoyable moments among the students from Sylhet. It is a wonderful gathering filled with delicious food, fun, and friendship, where juniors and seniors bond together like a family.</p>
                     </article>
                     <article class="event-card">
+                        <img src="img/campfire.png" alt="Campfire event">
                         <h3>Campfire</h3>
-                        <img src="img/campfire.png" alt="Campfire event" width="350" height="400">
-                        <br>
-                        <p>The Sylhet Association of KUET organizes a Campfire program every year where we warmly welcome the freshers and give farewell to our respected seniors. It is a memorable event filled with fun, cultural activities, and heartfelt moments that strengthen the bond among all members of the association.
-</p>
+                        <p>The Sylhet Association of KUET organizes a Campfire program every year where we warmly welcome the freshers and give farewell to our respected seniors. It is a memorable event filled with fun, cultural activities, and heartfelt moments that strengthen the bond among all members of the association.</p>
                     </article>
                     <article class="event-card">
+                        <img src="img/help.jpg" alt="Helping hands event">
                         <h3>Helping Hands</h3>
-                        <img src="img/help.jpg" alt="Helping hands event" width="350" height="400">
-                        <br>
-                        <p>Through the "Helping Hand" program, we try to support poor and helpless people during Ramadan by distributing gifts and essential items. We also stand beside flood-affected people by providing relief and necessary support during difficult times. This program reflects the spirit of humanity, kindness, and social responsibility.
-</p>
+                        <p>Through the "Helping Hand" program, we try to support poor and helpless people during Ramadan by distributing gifts and essential items. We also stand beside flood-affected people by providing relief and necessary support during difficult times. This program reflects the spirit of humanity, kindness, and social responsibility.</p>
                     </article>
                     <article class="event-card">
+                        <img src="img/iftar.jpg" alt="Iftar event">
                         <h3>Iftar Gathering</h3>
-                        <img src="img/iftar.jpg" alt="Iftar event" width="350" height="400">
-                        <br>
                         <p>The Sylhet Association of KUET also arranges beautiful Iftar gatherings during Ramadan, where seniors and juniors come together in Sylhet. It is a special moment to share food, strengthen our bond, and enjoy the blessings of Ramadan as one family.</p>
                     </article>
                     <article class="event-card">
+                        <img src="img/playing.jpg" alt="Playing event">
                         <h3>Playing Time</h3>
-                        <img src="img/playing.jpg" alt="Playing event" width="350" height="400">
-                        <br>
-                        <p>The Sylhet Association of KUET also organizes friendly cricket and football matches among its members. These sports events create a lively and competitive atmosphere where seniors and juniors play together, enjoy teamwork, and strengthen their bonding beyond academic life.
-</p>
+                        <p>The Sylhet Association of KUET also organizes friendly cricket and football matches among its members. These sports events create a lively and competitive atmosphere where seniors and juniors play together, enjoy teamwork, and strengthen their bonding beyond academic life.</p>
                     </article>
                 </div>
             </div>
@@ -135,7 +128,7 @@
                         <img src="img/gallery/476246187_1172976380844428_1202847445971021648_n.jpg" alt="Sylhet Association gallery photo 1">
                     </figure>
                     <figure class="gallery-item gallery-item--wide">
-                        <img src="img/gallery/480958285_3617746228523215_1006179549148778965_n.jpg" alt="Sylhet Association gallery photo 2">
+                        <img src="img/gallery/480958285_3617746228523215_1006179549148778965_n.jpg" alt="Sylhet Association gallery photo 2" >
                     </figure>
                     <figure class="gallery-item">
                         <img src="img/gallery/481014876_4094615337462841_9190408291765314636_n.jpg" alt="Sylhet Association gallery photo 3">
@@ -520,8 +513,8 @@
                         </div>
                         <div class="info-item">
                             <h3>Phone Number</h3>
-                            <p style="font-weight: semi-bold;">+880 1644 139432 (President)</p>
-                            <p style="font-weight: semi-bold;">+880 1619 500255 (General Secretary)</p>
+                            <p style="font-weight: 600;">+880 1644 139432 (President)</p>
+                            <p style="font-weight: 600;">+880 1619 500255 (General Secretary)</p>
                         </div>
                     </div>
                     <form class="contact-form">
@@ -687,6 +680,22 @@
             // Reset the form
             event.target.reset();
         }
+        // Mobile nav toggle
+        document.addEventListener('DOMContentLoaded', function(){
+            var navToggle = document.getElementById('nav-toggle');
+            var nav = document.getElementById('site-nav');
+            navToggle && navToggle.addEventListener('click', function(){
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                nav.classList.toggle('open');
+            });
+            nav && nav.addEventListener('click', function(event){
+                if (event.target.tagName === 'A' && window.innerWidth <= 900) {
+                    nav.classList.remove('open');
+                    navToggle && navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
     </script>
 </body>
 </html>

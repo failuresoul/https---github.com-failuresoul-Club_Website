@@ -29,6 +29,19 @@ $campaigns = fetch_all_safe($pdo, "SELECT * FROM funding_campaigns ORDER BY dead
 $jobs = fetch_all_safe($pdo, "SELECT * FROM job_offers WHERE status = 'active' ORDER BY created_at DESC");
 $emergencies = fetch_all_safe($pdo, "SELECT * FROM emergency_cases WHERE status = 'active' ORDER BY created_at DESC");
 
+// Fetch latest notifications (notices, funding campaigns, emergencies, and jobs) for the notification panel
+$notif_notices = fetch_all_safe($pdo, "SELECT id, title, description, created_at, 'notice' AS type FROM notices ORDER BY created_at DESC LIMIT 3");
+$notif_campaigns = fetch_all_safe($pdo, "SELECT id, title, description, created_at, 'funding' AS type FROM funding_campaigns ORDER BY created_at DESC LIMIT 3");
+$notif_emergencies = fetch_all_safe($pdo, "SELECT id, person_name AS title, situation AS description, created_at, 'emergency' AS type FROM emergency_cases WHERE status = 'active' ORDER BY created_at DESC LIMIT 3");
+$notif_jobs = fetch_all_safe($pdo, "SELECT id, title, description, created_at, 'job' AS type FROM job_offers WHERE status = 'active' ORDER BY created_at DESC LIMIT 3");
+
+$all_notifications = array_merge($notif_notices, $notif_campaigns, $notif_emergencies, $notif_jobs);
+// Sort notifications by created_at descending
+usort($all_notifications, function($a, $b) {
+    return strcmp($b['created_at'], $a['created_at']);
+});
+$latest_notifications = array_slice($all_notifications, 0, 5);
+
 // Fetch active contacts
 $president_contact = fetch_all_safe($pdo, "SELECT * FROM contact_info WHERE role = 'President' LIMIT 1");
 $gs_contact = fetch_all_safe($pdo, "SELECT * FROM contact_info WHERE role = 'General Secretary' LIMIT 1");
@@ -47,7 +60,7 @@ $gs_email = !empty($gs_contact) ? $gs_contact[0]['email'] : 'preetom@kuet.ac.bd'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sylhet Association of KUET</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -95,8 +108,16 @@ $gs_email = !empty($gs_contact) ? $gs_contact[0]['email'] : 'preetom@kuet.ac.bd'
                 <li><a href="#Contact">Contact</a></li>
             </ul>
         </nav>
-        <div class="menu-btn">
-            <button onclick="document.getElementById('joinnow-modal').style.display='flex'" class="signup">Join Now</button>
+        <div class="header-actions">
+            <div class="notif-bell-container" id="notif-bell-trigger">
+                <button class="notif-bell-btn" aria-label="Notifications" onclick="toggleNotifPanel(event)">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span class="notif-badge" id="notif-badge" style="display: none;">0</span>
+                </button>
+            </div>
+            <div class="menu-btn">
+                <button onclick="document.getElementById('joinnow-modal').style.display='flex'" class="signup">Join Now</button>
+            </div>
         </div>
     </header>
     <main>
@@ -971,7 +992,194 @@ $gs_email = !empty($gs_contact) ? $gs_contact[0]['email'] : 'preetom@kuet.ac.bd'
             </div>
         </footer>
     </main>
+
+    <!-- Notification Panel Drawer -->
+    <div class="notif-panel" id="notif-panel">
+        <div class="notif-header">
+            <span>Notifications</span>
+            <button class="notif-close-btn" onclick="toggleNotifPanel(event)">&times;</button>
+        </div>
+        <div class="notif-body" id="notif-body">
+            <!-- Notifications will be dynamically loaded here by JS -->
+        </div>
+        <div class="notif-footer">
+            <button class="notif-btn-clear" onclick="markAllNotificationsAsRead()">Mark all as read</button>
+        </div>
+    </div>
+
     <script>
+        // Dynamic Notification System Data
+        const dbNotifications = <?php echo json_encode($latest_notifications); ?>;
+
+        function toggleNotifPanel(event) {
+            if (event) event.stopPropagation();
+            const panel = document.getElementById('notif-panel');
+            panel.classList.toggle('open');
+        }
+
+        // Close panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('notif-panel');
+            const bell = document.getElementById('notif-bell-trigger');
+            if (panel && panel.classList.contains('open')) {
+                if (!panel.contains(event.target) && !bell.contains(event.target)) {
+                    panel.classList.remove('open');
+                }
+            }
+        });
+
+        // Format time difference
+        function formatTimeAgo(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr.replace(/-/g, "/"));
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return diffMins + 'm ago';
+            if (diffHours < 24) return diffHours + 'h ago';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return diffDays + 'd ago';
+            
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Load notifications
+        function loadNotifications() {
+            const container = document.getElementById('notif-body');
+            const badge = document.getElementById('notif-badge');
+            const bellContainer = document.getElementById('notif-bell-trigger');
+            
+            if (!container) return 0;
+
+            let readNotifs = [];
+            try {
+                readNotifs = JSON.parse(localStorage.getItem('sylhet_read_notifs')) || [];
+            } catch (e) {
+                readNotifs = [];
+            }
+
+            container.innerHTML = '';
+
+            // Filter for ONLY UNREAD notifications!
+            const unreadNotifications = dbNotifications.filter(notif => {
+                const notifKey = notif.type + '_' + notif.id;
+                return !readNotifs.includes(notifKey);
+            });
+
+            const unreadCount = unreadNotifications.length;
+
+            if (unreadCount === 0) {
+                container.innerHTML = `
+                    <div style="padding: 30px 15px; text-align: center; color: #888;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px; color: #ccc; display: block; margin-left: auto; margin-right: auto;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                        <p style="margin: 0; font-size: 0.9rem;">No new notifications</p>
+                    </div>
+                `;
+                if (badge) badge.style.display = 'none';
+                if (bellContainer) bellContainer.classList.remove('has-unread');
+                return 0;
+            }
+
+            unreadNotifications.forEach(notif => {
+                const notifKey = notif.type + '_' + notif.id;
+                const notifItem = document.createElement('div');
+                notifItem.className = `notif-item notif-type-${notif.type} unread`;
+                
+                let targetHref = '#';
+                if (notif.type === 'notice') targetHref = '#Notices';
+                else if (notif.type === 'funding') targetHref = '#Funding';
+                else if (notif.type === 'emergency') targetHref = '#Emergency';
+                else if (notif.type === 'job') targetHref = '#Jobs';
+
+                notifItem.innerHTML = `
+                    <div class="notif-indicator"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 10px;">
+                        <span class="notif-title" style="flex: 1; text-align: left; font-weight: 700;">${escapeHtml(notif.title)}</span>
+                        <span class="notif-type type-${notif.type}" style="font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; border: 1px solid currentColor; white-space: nowrap; font-weight: 800;">${notif.type}</span>
+                    </div>
+                    <span class="notif-time" style="align-self: flex-start; margin-top: 4px;">${formatTimeAgo(notif.created_at)}</span>
+                `;
+
+                notifItem.addEventListener('click', function(e) {
+                    markAsRead(notifKey);
+                    const panel = document.getElementById('notif-panel');
+                    if (panel) panel.classList.remove('open');
+                    
+                    if (targetHref !== '#') {
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(targetHref);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }, 100);
+                    }
+                });
+
+                container.appendChild(notifItem);
+            });
+
+            if (badge) {
+                badge.innerText = unreadCount;
+                badge.style.display = 'flex';
+                if (bellContainer) bellContainer.classList.add('has-unread');
+            }
+
+            return unreadCount;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function markAsRead(key) {
+            let readNotifs = [];
+            try {
+                readNotifs = JSON.parse(localStorage.getItem('sylhet_read_notifs')) || [];
+            } catch (e) {
+                readNotifs = [];
+            }
+
+            if (!readNotifs.includes(key)) {
+                readNotifs.push(key);
+                localStorage.setItem('sylhet_read_notifs', JSON.stringify(readNotifs));
+                loadNotifications();
+            }
+        }
+
+        function markAllNotificationsAsRead() {
+            if (!dbNotifications) return;
+            const allKeys = dbNotifications.map(notif => notif.type + '_' + notif.id);
+            localStorage.setItem('sylhet_read_notifs', JSON.stringify(allKeys));
+            loadNotifications();
+            
+            setTimeout(() => {
+                const panel = document.getElementById('notif-panel');
+                if (panel) panel.classList.remove('open');
+            }, 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const unreadCount = loadNotifications();
+            if (unreadCount > 0 && !sessionStorage.getItem('sylhet_notif_opened')) {
+                setTimeout(() => {
+                    const panel = document.getElementById('notif-panel');
+                    if (panel) {
+                        panel.classList.add('open');
+                        sessionStorage.setItem('sylhet_notif_opened', 'true');
+                    }
+                }, 1500);
+            }
+        });
         // Donation Modal control
         function openDonationModal(campaignId, campaignTitle) {
             document.getElementById('donate-campaign-id').value = campaignId;

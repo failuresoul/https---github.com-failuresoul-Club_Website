@@ -655,7 +655,7 @@ $gs_email = !empty($gs_contact) ? $gs_contact[0]['email'] : 'preetom@kuet.ac.bd'
                         $percent = $camp['goal_amount'] > 0 ? ($camp['raised_amount'] / $camp['goal_amount']) * 100 : 0;
                         if ($percent > 100) $percent = 100;
                         ?>
-                        <div class="funding-card" style="flex: 1 1 45%; margin-bottom: 20px; box-sizing: border-box;">
+                        <div class="funding-card">
                             <h3><?php echo htmlspecialchars($camp['title']); ?></h3>
                             <p><?php echo nl2br(htmlspecialchars($camp['description'])); ?></p>
                             <p style="font-size: 13px; color: #425244; margin-top: 5px;"><strong>Purpose:</strong> <?php echo htmlspecialchars($camp['purpose']); ?></p>

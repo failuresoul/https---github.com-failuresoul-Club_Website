@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Sylhet Association KUET</title>
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/admin.css?v=<?php echo filemtime('../css/admin.css'); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Additional inline icons/helpers */
@@ -97,6 +97,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <!-- Main Content Area -->
         <main class="main-content">
             <header class="top-header">
+                <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+                    <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
                 <h1>Sylhet Association of KUET</h1>
                 <div class="admin-profile">
                     <span>Admin: <?php echo $_SESSION['admin_name']; ?></span>
